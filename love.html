@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You 💛</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: monospace;
+    text-align: center;
+    overflow: hidden;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* START SCREEN */
+#startScreen {
+    margin-top: 200px;
+}
+
+/* TEXT SCENE */
+#scene {
+    display: none;
+    margin-top: 100px;
+}
+
+#text {
+    font-size: 24px;
+    width: 70%;
+    margin: auto;
+    white-space: pre-line;
+}
+
+/* FINAL */
+#final {
+    display: none;
+    font-size: 55px;
+    margin-top: 50px;
+    color: pink;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 30px red; }
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    color: red;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="song.mp3"></audio>
+
+<div id="startScreen">
+    <h1>Hey my love 💛</h1>
+    <button onclick="start()">▶ Start</button>
+</div>
+
+<div id="scene">
+    <div id="text"></div>
+</div>
+
+<div id="final">だいすき 💕</div>
+
+<script>
+
+function start() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("scene").style.display = "block";
+
+    document.getElementById("music").play();
+    typeText();
+}
+
+let message = [
+"I don’t know when it started...",
+"But somehow...",
+"You became my favorite person.",
+"",
+"You make everything feel lighter...",
+Even my worst days.",
+"",
+"Talking to you feels like home.",
+"",
+"And being with you...",
+Feels like I'm inside my favorite anime scene.",
+"",
+"If love was code...",
+You would be my only constant.",
+"",
+"if (you == mine) {",
+"   happiness = infinite;",
+"}",
+"",
+"...and I mean it.",
+"",
+"I love you 💛"
+];
+
+let i = 0, j = 0;
+
+function typeText() {
+    if (i < message.length) {
+        if (j < message[i].length) {
+            document.getElementById("text").innerHTML += message[i][j];
+            j++;
+            setTimeout(typeText, 40);
+        } else {
+            document.getElementById("text").innerHTML += "\n";
+            i++; j = 0;
+            setTimeout(typeText, 600);
+        }
+    } else {
+        setTimeout(showFinal, 1500);
+    }
+}
+
+function showFinal() {
+    document.getElementById("final").style.display = "block";
+    hearts();
+}
+
+function hearts() {
+    setInterval(() => {
+        let h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = (Math.random() * 20 + 15) + "px";
+        document.body.appendChild(h);
+
+        setTimeout(() => h.remove(), 5000);
+    }, 300);
+}
+
+</script>
+
+</body>
+</html>
